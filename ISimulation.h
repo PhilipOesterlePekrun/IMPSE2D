@@ -10,5 +10,5 @@ public:
 
 	// every simulation must have run(), and possibly more which I will add in time
 	virtual bool run();
-	virtual void printInformation();
+	virtual std::string* simulationInformation();
 };

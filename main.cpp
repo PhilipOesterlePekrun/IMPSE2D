@@ -7,6 +7,7 @@
 #include "Utilities.h"
 #include "Simulation_FDM_ChorinsProj_Viscous_Unsteady.h";
 #include "Visualization.h"
+#include "FDM_EquiGridVisualization.h"
 
 
 const size_t UVP_maxRAM = 8*(unsigned long long)(1024 * 1024 * 1024); // maximum total size of U_reduced+V_reduced+P_reduced in Bytes
@@ -74,11 +75,11 @@ double U_onLeftBoundary(double y, double t)
 int main()
 {
     Simulation_FDM_ChorinsProj_Viscous_Unsteady sim1=Simulation_FDM_ChorinsProj_Viscous_Unsteady(0001);
-    sim1.printInformation();
+    //sim1.printInformation();
     sim1.xCount*=5;
     sim1.yCount*=5;
     sim1.nCount*=2;
-    sim1.printInformation();
+    //sim1.printInformation();
     sim1.maxReducedFactor_x=10;
     sim1.maxReducedFactor_y=10;
     sim1.maxReducedFactor_t=10;
@@ -86,10 +87,11 @@ int main()
     Visualization::loadFont(&timesNewRoman, "times.ttf");
     //std::cout<<timesNewRoman.getInfo().family<<"\n";
     Visualization vis1=Visualization(2000, 1000, 60, sf::Color(120,120,120), sf::Color(200,200,0), sf::Color(0,0,0), &timesNewRoman, 12, 2);
+    FDM_EquiGridVisualization vis2=FDM_EquiGridVisualization(2000, 1000, 60, sf::Color(120,120,120), sf::Color(200,200,0), sf::Color(0,0,0), &timesNewRoman, 12, 2);
     
-    vis1.activate();
-    while(vis1.active){
-        vis1.drawFrame();
+    vis2.activate();
+    while(vis2.active){
+        vis2.drawFrame();
     }
 
     /*sf::RenderWindow renderWindow;

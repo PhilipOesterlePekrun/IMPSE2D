@@ -65,6 +65,12 @@ namespace Utilities{
     return sizeof(ElementType);
     }*/
 
+
+    template <typename T, std::size_t N>
+    std::size_t getArrLengthStatic(T (&array)[N]) {
+        return N;
+    }
+
     template <typename T>
     void allocate3DArray(T ****arr, int xCount, int yCount, int zCount) {
         *arr = (T***) malloc(xCount * sizeof(T**));

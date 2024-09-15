@@ -6,6 +6,9 @@ class Simulation_FDM_ChorinsProj_Viscous_Unsteady : public ISimulation
 // // default values if applicable
 
 public:
+    bool simHasRun=false; // has run at least once; all or most values should be inititialized
+
+public:
     size_t UVP_maxRAM = 8 * (unsigned long long)(1024 * 1024 * 1024); // maximum total size of U_reduced+V_reduced+P_reduced in Bytes
 // simple reduced control:
     enum dxdydt
@@ -43,13 +46,11 @@ public:
 public:
     int xCount = 80;
     double dx = 0.05;
-private:
     double* xBounds; // rectangle; implicitly given if we assume starts at x=0 and length in +x
 
 public:
     int yCount = 80;
     double dy = 0.05;
-private:
     double* yBounds; //
 
 public:
@@ -75,15 +76,15 @@ private:
     Utilities::fieldExtrema pE;
 
 public:
+    inline Simulation_FDM_ChorinsProj_Viscous_Unsteady(){}; // default constructor for compiler
     Simulation_FDM_ChorinsProj_Viscous_Unsteady(int simID);
     bool run() override;
-    void printInformation() override;
-
+    std::string* simulationInformation() override;
     //!
 
 private:
     inline long long int reducedLength(int originalLength, int reducedFactor){
-        return std::ceil((originalLength-1)/reducedFactor)+1;
+        return (int)std::ceil(((double)(originalLength-1))/reducedFactor)+1;
     }
 
     // utilities specifically for this type of simulation

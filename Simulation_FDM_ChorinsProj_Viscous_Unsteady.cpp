@@ -199,16 +199,21 @@ bool Simulation_FDM_ChorinsProj_Viscous_Unsteady::run(){
 
 
 
-
+    simHasRun=true;
     return 1;
 }
 
-void Simulation_FDM_ChorinsProj_Viscous_Unsteady::printInformation(){
-    std::cout<<"Simulation Information:\n"<<
-        "  ID = "<<simulationID<<"\n"<<
-        "  Method name = "<<simulationMethodName<<"\n"<<
-        "  dx, dy, dt = "<<dx<<", "<<dy<<", "<<dt<<"\n"<<
-        "  xCount, yCount, nCount = "<<xCount<<", "<<yCount<<", "<<nCount<<"\n\n";
+std::string* Simulation_FDM_ChorinsProj_Viscous_Unsteady::simulationInformation(){
+    std::string arr[]={"ID = "+std::to_string(simulationID),
+        "Method name = "+simulationMethodName,
+        "dx, dy, dt = "+std::to_string(dx)+", "+std::to_string(dy)+", "+std::to_string(dt),
+        "xCount, yCount, nCount = "+std::to_string(xCount)+", "+std::to_string(yCount)+", "+std::to_string(nCount)};
+    if(simHasRun){
+        std::string arr[]={"ID = "+std::to_string(simulationID),
+            "Method name = "+simulationMethodName,
+            "dx, dy, dt = "+std::to_string(dx)+", "+std::to_string(dy)+", "+std::to_string(dt),
+            "xCount, yCount, nCount = "+std::to_string(xCount)+", "+std::to_string(yCount)+", "+std::to_string(nCount),
+            "spatialDomain = (xBounds = ["+std::to_string(xBounds[0])+", "+std::to_string(xBounds[1])+"])"+" cross "+"(yBounds = ["+std::to_string(yBounds[0])+", "+std::to_string(yBounds[1])+"])"};
+    }
+    return arr;
 }
-
-// private:
